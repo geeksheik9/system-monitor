@@ -30,10 +30,18 @@ func MonitorLinux() {
 
 		log.Info(temp)
 
+		if temp < 40 {
+			counter = 0
+		}
+
 		if temp > 40 {
-			alert("temp is very high")
+			counter++
 			log.Errorf("Temperature is %v°C", temp)
 			sleeper *= 2
+			if counter > 5 {
+				alert("temp is very high")
+				counter = 0
+			}
 			continue
 		}
 

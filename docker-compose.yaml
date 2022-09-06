@@ -6,4 +6,4 @@ services:
     container_name: system-monitor
     build: .
     volumes:
-      - /sys/class/thermal/thermal_zone*/temp:/temps
+      - /temp:/sys/class/thermal/thermal_zone*/temp

@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/json"
 	"os/exec"
 	"strconv"
 	"time"
@@ -16,13 +17,19 @@ func MonitorLinux() {
 		out, err := cmd.Output()
 		if err != nil {
 			log.Errorf("Monitoring error: %s", err)
-			//sleeper *= 2
+			sleeper *= 2
 			continue
 		}
 
-		log.Info(out)
+		var output string
+		err = json.Unmarshal(out, &output)
+		if err != nil {
+			log.Errorf("Monitoring error: %s", err)
+			sleeper *= 2
+			continue
+		}
 
-		temp, err := strconv.Atoi(string(out))
+		temp, err := strconv.Atoi(output)
 		if err != nil {
 			log.Errorf("Conversion error: %s", err)
 			sleeper *= 2

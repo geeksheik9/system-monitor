@@ -11,5 +11,6 @@ RUN go build -gcflags "all=-N -l" -ldflags "-X main.version=${VERSION}" -o app;
 FROM alpine:latest
 WORKDIR /root
 COPY --from=builder /system-monitor/cmd/svr/app .
+COPY --from=builder /system-monitor/scripts/monitor.sh ./scripts/monitor.sh
 
 CMD ["./app"]

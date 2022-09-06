@@ -1,0 +1,9 @@
+services:
+  system-monitor:
+    ports:
+      - 80801:8080
+    image: system-monitor:v0.0.5.8-alpha
+    container_name: system-monitor
+    build: .
+    volumes:
+      - /sys/class/thermal/thermal_zone*/temp:temp

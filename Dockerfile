@@ -1,6 +1,7 @@
 FROM golang:alpine AS builder
 ARG VERSION
 RUN apk add --no-cache --virtual .build-deps git libc6-compat build-base
+RUN apk update && apk add bash
 WORKDIR /system-monitor
 
 COPY . .

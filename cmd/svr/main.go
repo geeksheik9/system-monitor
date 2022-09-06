@@ -10,7 +10,7 @@ import (
 
 func main() {
 	log.Infof("Running on %s", runtime.GOOS)
-	switch runtime.GOOS {
+	switch "linux" {
 	case "linux":
 		api.MonitorLinux()
 	case "windows":

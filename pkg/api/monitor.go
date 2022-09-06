@@ -4,21 +4,21 @@ import (
 	"bytes"
 	"os/exec"
 	"strconv"
-	"strings"
 	"time"
 
 	log "github.com/sirupsen/logrus"
 )
 
 func MonitorLinux() {
-	sleeper := 30
+	sleeper := 2
 	for {
 		time.Sleep(time.Duration(sleeper) * time.Second)
-		cmd := exec.Command(`paste <(cat /sys/class/thermal/thermal_zone*/type) <(cat /sys/class/thermal/thermal_zone*/temp) | column -s $'\t' -t | sed 's/\(.\)..$/.\1°C/'`, "")
+		cmd := exec.Command(`cat sys/class/thermal/thermal_zone*/temp | column -s $'\t' -t | sed 's/\(.\)..$/.\1/'`)
 		err := cmd.Run()
 		if err != nil {
-			log.Infof("Command issue: %v", cmd)
-			log.Errorf("Monitoring error: %s", err)
+			log.Infof("Command issue: %v", cmd.Stdin)
+			log.Infof("Error %v, ", cmd.Stdout)
+			log.Errorf("Monitoring error: %s", err.Error())
 			sleeper *= 2
 			continue
 		}
@@ -26,7 +26,7 @@ func MonitorLinux() {
 		var out bytes.Buffer
 		cmd.Stdout = &out
 
-		temp, err := strconv.Atoi(strings.Split(strings.Trim(out.String(), "°C"), " ")[1])
+		temp, err := strconv.Atoi(out.String())
 		if err != nil {
 			log.Errorf("Conversion error: %s", err)
 			sleeper *= 2

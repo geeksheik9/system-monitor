@@ -27,6 +27,8 @@ func MonitorLinux() {
 			continue
 		}
 
+		log.Info(temp)
+
 		if temp > 40 {
 			log.Errorf("Temperature is %v°C", temp)
 			sleeper *= 2

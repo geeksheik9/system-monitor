@@ -13,11 +13,11 @@ func MonitorLinux() {
 	sleeper := 2
 	for {
 		time.Sleep(time.Duration(sleeper) * time.Second)
-		cmd := exec.Command("cat", `/sys/class/thermal/thermal_zone*/temp | column -s $'\t' -t | sed 's/\(.\)..$/.\1/'`)
+		cmd := exec.Command("./scripts/monitor.sh")
 		err := cmd.Run()
 		if err != nil {
-			log.Errorf("Monitoring error: %s", err.Error())
-			sleeper *= 2
+			log.Errorf("Monitoring error: %s", err)
+			//sleeper *= 2
 			continue
 		}
 

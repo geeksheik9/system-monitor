@@ -2,7 +2,7 @@ services:
   system-monitor:
     ports:
       - 8081:8080
-    image: geeksheik9/system-monitor:v0.0.5.8-alpha
+    image: geeksheik9/system-monitor:latest
     container_name: system-monitor
     build: .
     volumes:

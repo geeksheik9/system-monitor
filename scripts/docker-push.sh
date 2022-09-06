@@ -17,7 +17,7 @@ echo "Building ${taggedImage}"
 docker build --platform linux/arm64/v8 --no-cache -t ${taggedImage} --build-arg VERSION=${version} .
 
 echo "Please login to docker hub"
-#docker logout
+docker logout
 docker login --username=$username
 
 echo "pushing image ${taggedImage}"

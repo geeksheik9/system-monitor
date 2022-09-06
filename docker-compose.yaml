@@ -2,7 +2,8 @@ services:
   system-monitor:
     ports:
       - 8081:8080
-    image: geeksheik9/system-monitor
+    image: geeksheik9/system-monitor:v0.0.1
+    pull_policy: always
     container_name: system-monitor
     volumes:
       - /sys/class/thermal/thermal_zone0/temp:/sys/class/thermal/thermal_zone0/temp

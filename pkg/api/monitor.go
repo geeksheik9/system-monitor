@@ -13,7 +13,7 @@ func MonitorLinux() {
 	sleeper := 2
 	for {
 		time.Sleep(time.Duration(sleeper) * time.Second)
-		cmd := exec.Command(`cat /temp | column -s $'\t' -t | sed 's/\(.\)..$/.\1/'`)
+		cmd := exec.Command(`cat /sys/class/thermal/thermal_zone*/temp | column -s $'\t' -t | sed 's/\(.\)..$/.\1/'`)
 		err := cmd.Run()
 		if err != nil {
 			log.Infof("Command issue: %v", cmd.Stdin)

@@ -4,6 +4,5 @@ services:
       - 8081:8080
     image: geeksheik9/system-monitor:latest
     container_name: system-monitor
-    build: .
     volumes:
-      - /temp:/sys/class/thermal/thermal_zone*/temp
+      - /sys/class/thermal/thermal_zone0/temp:/sys/class/thermal/thermal_zone0/temp

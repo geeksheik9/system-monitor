@@ -1,7 +1,6 @@
 package api
 
 import (
-	"bytes"
 	"os/exec"
 	"strconv"
 	"time"
@@ -14,17 +13,16 @@ func MonitorLinux() {
 	for {
 		time.Sleep(time.Duration(sleeper) * time.Second)
 		cmd := exec.Command("./scripts/monitor.sh")
-		err := cmd.Run()
+		out, err := cmd.Output()
 		if err != nil {
 			log.Errorf("Monitoring error: %s", err)
 			//sleeper *= 2
 			continue
 		}
 
-		var out bytes.Buffer
-		cmd.Stdout = &out
+		log.Info(out)
 
-		temp, err := strconv.Atoi(out.String())
+		temp, err := strconv.Atoi(string(out))
 		if err != nil {
 			log.Errorf("Conversion error: %s", err)
 			sleeper *= 2
